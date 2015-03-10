@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/cupertino/jquery-ui.css" rel='stylesheet' type='text/css' />
+    <style>
+        #sunday_preview {
+            width: 300px;
+            height: 300px;
+            background: #fff;
+            position: relative;
+        }
+        #sunday_preview .pano-images-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+        }
+        #sunday_preview .images-stack, #sunday_preview .images-stack img {
+            display: none;
+        }        
+    </style>
+  </head>
+  <body>
+    <div id="sunday_preview"></div>
+    <div class="container">
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    <script src="sunday.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            "use strict";
+            var slides = ["http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466057.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466072.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466087.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466102.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466117.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466127.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466142.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466157.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466172.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466177.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466182.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466187.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466192.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466197.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466202.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466207.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466212.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466217.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466222.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466227.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466232.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466237.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466242.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466247.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466252.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466257.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466262.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466267.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466272.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466277.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466282.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466287.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466292.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466302.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466307.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466317.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466327.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466332.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466342.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466352.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466357.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466367.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466377.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466382.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466392.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466402.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466412.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466422.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466437.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466447.jpg"]; // Array of links
+            $("#sunday_preview").sundayPano({
+                items: slides,
+                control: true, // This one required jQueryUI Slider
+                direction: 'vertical' // Horizontal/vertical. Affects drag direction and control slider position
+            });
+        });        
+    </script>
+  </body>
+</html>
