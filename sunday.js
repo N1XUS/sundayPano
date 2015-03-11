@@ -1,8 +1,33 @@
 (function() {
     "use strict";
+    $.extend({
+        isMobile: function() {
+            return navigator.userAgent.match(/iPhone|iPad|iPod|Android|Windows Phone|IEMobile/i);
+        }
+    });
     $.fn.extend({
         sundayPano: function(opts) {
-            var elm, init, move, preload, allow, initial_offset, image_key, preloaded, img_container, slider, set_frame, preload_image, i, default_opts, autoplay, _i, interval_id;
+            
+            // Predefine global var's
+            var elm, 
+            init, 
+            move, 
+            preload, 
+            allow, 
+            initial_offset, 
+            image_key, 
+            preloaded, 
+            img_container, 
+            slider, 
+            set_frame, 
+            preload_image, 
+            i, 
+            default_opts, 
+            autoplay, 
+            _i, 
+            interval_id,
+            stop_autoplay;
+            
             elm = $(this);
             preloaded = [];
             image_key = 0;
@@ -65,6 +90,13 @@
                 // Create container which will change backgrounds (in order to slider worked)
                 img_container = $('<div class="pano-images-container"></div>');
                 elm.append(img_container);
+                
+                // Add disable button for enabling native touch events
+                if ($.isMobile() !== null) {
+                    var dis_button = $('<a href="#" class="sunday-pano-disable-button">&times;</a>');
+                    elm.append(dis_button);
+                }
+                
                 // Check if we have jQuery UI Slider
                 if (opts.control === true && $.ui === undefined) {
                     console.error("In order to use controls you need to include jQuery UI's slider first");
@@ -88,16 +120,27 @@
                         frame = (ui.value / (100 / opts.items.length)) * add;
                         set_frame(frame);
                     };
+                    params.start = function() {
+                        // Stop autoplay
+                        stop_autoplay();
+                    }
                     slider.slider(params);
                     elm.append(slider);
                 }
+                $(document).on("click touchstart", ".sunday-pano-disable-button", function(e) {
+                    console.log(e);
+                   e.preventDefault();
+                   elm.toggleClass("sunday-pano-disabled"); 
+                });
                 $(img_container).on("mousedown touchstart", function(e) {
-                    e.preventDefault();
-                    img_container.addClass("sunday-pano-grab");
-                    if (opts.autoplay !== false && opts.autoplay > 0) {
-                        clearInterval(interval_id);
+                    if (!elm.hasClass("sunday-pano-disabled")) {
+                        e.preventDefault();
+                        img_container.addClass("sunday-pano-grab");
+                        
+                        stop_autoplay();
+                        
+                        allow = true;                        
                     }
-                    allow = true;
                 });
                 $(document).on("mouseup touchend", function(e) {
                     img_container.removeClass("sunday-pano-grab");
@@ -174,12 +217,16 @@
                         _i = opts.items.length;
                     }
                 }, opts.autoplay);
+            };
+            stop_autoplay = function() {
+                if (opts.autoplay !== false && opts.autoplay > 0) {
+                    clearInterval(interval_id);
+                }
             }
             // Init plugin
             init();
             // Preload first and last 10% of image stack;
             preload();
-            console.log(opts.autoplay !== false);
             if (opts.autoplay !== false && opts.autoplay > 0) {
                 autoplay();
             }
