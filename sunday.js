@@ -2,12 +2,21 @@
     "use strict";
     $.fn.extend({
         sundayPano: function (opts) {
-            var elm, init, move, preload, allow, initial_offset, image_key, preloaded, img_container, slider, set_frame, preload_image, i;
+            var elm, init, move, preload, allow, initial_offset, image_key, preloaded, img_container, slider, set_frame, preload_image, i, default_opts;
             elm = $(this);
             preloaded = [];
             image_key = 0;
             initial_offset = 0;
             allow = false;
+            
+            default_opts = {
+              direction: "horizontal",
+              control: false,
+            };
+            
+            opts = $.extend(default_opts, opts);
+            
+            console.log(opts);
 
             set_frame = function (frame_id) {
                 if (preloaded[frame_id] === undefined && opts.items[frame_id] !== undefined) {
@@ -16,6 +25,14 @@
                     img_container.css({
                         'background-image': "url('" + preloaded[frame_id] + "')"
                     });
+                }
+                if (preloaded[frame_id + 1] === undefined) {
+                    // Preload next image
+                    preload_image(frame_id + 1);
+                }
+                if (preloaded[frame_id - 1] === undefined) {
+                    // Preload previous image
+                    preload_image(frame_id - 1);
                 }
                 image_key = frame_id;
                 if (opts.control === true) {
@@ -57,7 +74,7 @@
                     params.min = 0;
                     params.max = 100;
                     params.step = 100 / opts.items.length;
-                    params.orientation = (opts.direction === "vertical") ? "vertical" : "horizontal";
+                    params.orientation = opts.direction;
                     if (opts.direction === "vertical") { // Since slider goes from bottom to top, we need to reverse values
                         params.min = -100;
                         params.max = 0;
@@ -73,9 +90,11 @@
                 }
                 $(img_container).on("mousedown touchstart", function (e) {
                     e.preventDefault();
+                    img_container.addClass("sunday-pano-grab");
                     allow = true;
                 });
                 $(document).on("mouseup touchend", function (e) {
+                    img_container.removeClass("sunday-pano-grab");
                     e.preventDefault();
                     allow = false;
                 });
