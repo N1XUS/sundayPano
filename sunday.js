@@ -19,6 +19,7 @@
             preloaded, 
             img_container, 
             slider, 
+            controls_container,
             set_frame, 
             preload_image, 
             i, 
@@ -40,12 +41,19 @@
                 autoplay: false,
                 autoplay_direction: "<",
                 speed: 5,
+                width: undefined,
+                height: undefined,
+                next_button: '<a href="#"><i class="glyphicon glyphicon-chevron-right"></i></a>',
+                prev_button: '<a href="#"><i class="glyphicon glyphicon-chevron-left"></i></a>',
+                play_button: '<a href="#"><i class="glyphicon glyphicon-play"></i></a>',
+                pause_button: '<a href="#"><i class="glyphicon glyphicon-pause"></i></a>',
                 before_init: function(opts) {},
                 after_init: function(opts) {},
                 set_frame: function(frame_id) {},
                 on_move: function(coord, initial_offset) {}
             };
             opts = $.extend(default_opts, opts);
+
             set_frame = function(frame_id) {
                 opts.set_frame(frame_id);
                 if (preloaded[frame_id] === undefined && opts.items[frame_id] !== undefined) {
@@ -98,6 +106,15 @@
                 img_container = $('<div class="pano-images-container"></div>');
                 elm.append(img_container);
                 
+                if (opts.width === undefined) {
+                    // Set width of image equal to width of container
+                    opts.width = elm.width();
+                }
+                if (opts.height === undefined) {
+                    // Set height of image equal to height of container
+                    opts.height = elm.height();
+                }
+                
                 // Add disable button for enabling native touch events
                 if ($.isMobile() !== null) {
                     var dis_button = $('<a href="#" class="sunday-pano-disable-button">&times;</a>');
@@ -110,7 +127,12 @@
                     opts.control = false;
                 }
                 if (opts.control === true) {
-                    slider = $('<div class="pano-control"></div>');
+                    controls_container = $('<div class="pano-control"></div>');
+                    $(controls_container).append($(opts.next_button).addClass("sunday-pano-next-frame"));
+                    $(controls_container).append($(opts.prev_button).addClass("sunday-pano-prev-frame"));
+                    $(controls_container).append($(opts.play_button).addClass("sunday-pano-autoplay-start"));
+                    $(controls_container).append($(opts.pause_button).addClass("sunday-pano-autoplay-pause"));
+                    slider = $('<div class="pano-slider"></div>');
                     var params = {};
                     params.value = 0;
                     params.min = 0;
@@ -132,8 +154,14 @@
                         stop_autoplay();
                     }
                     slider.slider(params);
-                    elm.append(slider);
+                    controls_container.append(slider);
+                    elm.append(controls_container);
+                    
+                    $(document).on("click", ".sunday-pano-next-frame, .sunday-pano-prev-frame, .sunday-pano-autoplay-start, .sunday-pano-autoplay-pause", function(e) {
+                        e.preventDefault(); 
+                    });
                 }
+                
                 $(document).on("click touchstart", ".sunday-pano-disable-button", function(e) {
                     console.log(e);
                    e.preventDefault();
@@ -213,6 +241,7 @@
             };
             autoplay = function() {
                 _i = 0;
+                elm.addClass("sunday-pano-playing");
                 interval_id = setInterval(function(){
                     set_frame(_i);
                     if (opts.autoplay_direction === ">") {
@@ -228,7 +257,8 @@
                 }, opts.autoplay);
             };
             stop_autoplay = function() {
-                if (opts.autoplay !== false && opts.autoplay > 0) {
+                if (opts.autoplay !== false && opts.autoplay > 1) {
+                    elm.removeClass("sunday-pano-playing");
                     clearInterval(interval_id);
                 }
             }
@@ -236,7 +266,7 @@
             init();
             // Preload first and last 10% of image stack;
             preload();
-            if (opts.autoplay !== false && opts.autoplay > 0) {
+            if (opts.autoplay !== false && opts.autoplay > 1) {
                 autoplay();
             }
         }
