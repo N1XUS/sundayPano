@@ -16,7 +16,7 @@
             
             opts = $.extend(default_opts, opts);
             
-            console.log(opts);
+            
 
             set_frame = function (frame_id) {
                 if (preloaded[frame_id] === undefined && opts.items[frame_id] !== undefined) {
@@ -67,6 +67,11 @@
                 // Create container which will change backgrounds (in order to slider worked)
                 img_container = $('<div class="pano-images-container"></div>');
                 elm.append(img_container);
+                // Check if we have jQuery UI Slider
+                if (opts.control === true && $.ui === undefined) {
+                    console.error("In order to use controls you need to include jQuery UI's slider first");
+                    opts.control = false;
+                }
                 if (opts.control === true) {
                     slider = $('<div class="pano-control"></div>');
                     var params = {};
