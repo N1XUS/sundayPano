@@ -17,10 +17,13 @@
             position: relative;
             margin: 50px auto;
         }
+        .sunday-pano.sunday-pano-disabled {
+            opacity: 0.3;
+        }
         .sunday-pano-disable-button {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 5px;
+            left: 5px;
             color: #ccc;
             text-decoration: none;
             display: block;
@@ -37,6 +40,8 @@
         }
         .sunday-pano .ui-slider {
             position: absolute;
+            background: #fff;
+            border: none;
         }
         .sunday-pano .ui-slider.ui-slider-vertical {
             top: 50%;
@@ -44,9 +49,16 @@
             margin-top: -25%;
             left: 20px;
             width: 1px;
-            background: #fff;
             box-shadow: 1px 0px 0 rgba(0, 0, 0, 0.1);
-            border: none;
+        }
+        
+        .sunday-pano .ui-slider.ui-slider-horizontal {
+            width: 50%;
+            left: 50%;
+            margin-left: -25%;
+            bottom: 20px;
+            height: 1px;
+            box-shadow: 0px 1px 0 rgba(0, 0, 0, 0.1);
         }
         
         .sunday-pano .ui-slider .ui-slider-handle {
@@ -73,6 +85,9 @@
         }
         .sunday-pano .ui-slider.ui-slider-vertical .ui-slider-handle {
             margin-left: -6px;
+        }
+        .sunday-pano .ui-slider.ui-slider-horizontal .ui-slider-handle {
+            margin-top: -6px;
         }
         .sunday-pano .pano-images-container.sunday-pano-grab {
             cursor: -webkit-grabbing;
@@ -114,9 +129,9 @@
             var slides = ["http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466057.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466072.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466087.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466102.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466117.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466127.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466142.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466157.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466172.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466177.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466182.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466187.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466192.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466197.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466202.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466207.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466212.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466217.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466222.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466227.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466232.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466237.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466242.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466247.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466252.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466257.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466262.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466267.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466272.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466277.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466282.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466287.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466292.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466302.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466307.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466317.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466327.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466332.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466342.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466352.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466357.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466367.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466377.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466382.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466392.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466402.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466412.jpg", "http:\/\/i1.rozetka.ua\/goods\/186466\/record_186466422.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466437.jpg", "http:\/\/i2.rozetka.ua\/goods\/186466\/record_186466447.jpg"]; // Array of links
             $("#sunday_preview").sundayPano({
                 items: slides,
-                autoplay: 50,
+                autoplay: false,
                 control: true, // This one required jQueryUI Slider
-                direction: 'vertical' // Horizontal/vertical. Affects drag direction and control slider position
+                direction: 'horizontal', // Horizontal/vertical. Affects drag direction and control slider position
             });
         });        
     </script>

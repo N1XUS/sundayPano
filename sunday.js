@@ -34,14 +34,20 @@
             initial_offset = 0;
             allow = false;
             default_opts = {
+                items: [],
                 direction: "horizontal",
                 control: false,
                 autoplay: false,
                 autoplay_direction: "<",
-                speed: 5
+                speed: 5,
+                before_init: function(opts) {},
+                after_init: function(opts) {},
+                set_frame: function(frame_id) {},
+                on_move: function(coord, initial_offset) {}
             };
             opts = $.extend(default_opts, opts);
             set_frame = function(frame_id) {
+                opts.set_frame(frame_id);
                 if (preloaded[frame_id] === undefined && opts.items[frame_id] !== undefined) {
                     preload_image(frame_id, true);
                 } else if (preloaded[frame_id] !== undefined) {
@@ -83,6 +89,7 @@
                 }
             };
             init = function() {
+                opts.before_init(opts);
                 // Add specific-direction class to element
                 elm.addClass("sunday-pano").addClass("direction-" + opts.direction);
                 // Create hidden div to store preloaded images
@@ -180,8 +187,10 @@
                         }
                     }
                 });
+                opts.after_init(opts);
             };
             move = function(coord) {
+                opts.on_move(coord, initial_offset);
                 if (initial_offset - coord > opts.speed) {
                     initial_offset = coord;
                     image_key = --image_key < 0 ? opts.items.length : image_key;
