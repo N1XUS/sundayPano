@@ -1,24 +1,22 @@
-(function () {
+(function() {
     "use strict";
     $.fn.extend({
-        sundayPano: function (opts) {
-            var elm, init, move, preload, allow, initial_offset, image_key, preloaded, img_container, slider, set_frame, preload_image, i, default_opts;
+        sundayPano: function(opts) {
+            var elm, init, move, preload, allow, initial_offset, image_key, preloaded, img_container, slider, set_frame, preload_image, i, default_opts, autoplay, _i, interval_id;
             elm = $(this);
             preloaded = [];
             image_key = 0;
             initial_offset = 0;
             allow = false;
-            
             default_opts = {
-              direction: "horizontal",
-              control: false,
+                direction: "horizontal",
+                control: false,
+                autoplay: false,
+                autoplay_direction: "<",
+                speed: 5
             };
-            
             opts = $.extend(default_opts, opts);
-            
-            
-
-            set_frame = function (frame_id) {
+            set_frame = function(frame_id) {
                 if (preloaded[frame_id] === undefined && opts.items[frame_id] !== undefined) {
                     preload_image(frame_id, true);
                 } else if (preloaded[frame_id] !== undefined) {
@@ -42,12 +40,11 @@
                     slider.slider('option', 'value', value);
                 }
             };
-
-            preload_image = function (frame_id, set) {
+            preload_image = function(frame_id, set) {
                 if (preloaded[frame_id] === undefined && opts.items[frame_id] !== undefined) {
                     var img = $("<img />");
                     if (set === true) {
-                        img.attr("src", opts.items[frame_id]).load(function () {
+                        img.attr("src", opts.items[frame_id]).load(function() {
                             $(".images-stack", elm).append(img);
                             preloaded[frame_id] = opts.items[frame_id];
                             img_container.css({
@@ -60,8 +57,9 @@
                     }
                 }
             };
-
-            init = function () {
+            init = function() {
+                // Add specific-direction class to element
+                elm.addClass("sunday-pano").addClass("direction-" + opts.direction);
                 // Create hidden div to store preloaded images
                 elm.append('<div class="images-stack hidden"></div>');
                 // Create container which will change backgrounds (in order to slider worked)
@@ -84,7 +82,7 @@
                         params.min = -100;
                         params.max = 0;
                     }
-                    params.slide = function (event, ui) {
+                    params.slide = function(event, ui) {
                         var add, frame;
                         add = (opts.direction === "vertical") ? -1 : 1;
                         frame = (ui.value / (100 / opts.items.length)) * add;
@@ -93,17 +91,20 @@
                     slider.slider(params);
                     elm.append(slider);
                 }
-                $(img_container).on("mousedown touchstart", function (e) {
+                $(img_container).on("mousedown touchstart", function(e) {
                     e.preventDefault();
                     img_container.addClass("sunday-pano-grab");
+                    if (opts.autoplay !== false && opts.autoplay > 0) {
+                        clearInterval(interval_id);
+                    }
                     allow = true;
                 });
-                $(document).on("mouseup touchend", function (e) {
+                $(document).on("mouseup touchend", function(e) {
                     img_container.removeClass("sunday-pano-grab");
                     e.preventDefault();
                     allow = false;
                 });
-                $(document).on("mousemove", function (e) {
+                $(document).on("mousemove", function(e) {
                     if (allow === true) {
                         e.preventDefault();
                         if (opts.direction === "horizontal") {
@@ -119,8 +120,7 @@
                         }
                     }
                 });
-
-                $(document).on("touchmove", function (e) {
+                $(document).on("touchmove", function(e) {
                     var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
                     if (allow === true) {
                         e.preventDefault();
@@ -138,18 +138,17 @@
                     }
                 });
             };
-            move = function (coord) {
-                if (initial_offset - coord > 5) {
+            move = function(coord) {
+                if (initial_offset - coord > opts.speed) {
                     initial_offset = coord;
                     image_key = --image_key < 0 ? opts.items.length : image_key;
-                } else if (initial_offset - coord < -5) {
+                } else if (initial_offset - coord < (-1 * opts.speed)) {
                     initial_offset = coord;
                     image_key = ++image_key >= opts.items.length ? 0 : image_key;
                 }
                 set_frame(image_key);
             };
-
-            preload = function () {
+            preload = function() {
                 if (opts.items.length > 0) {
                     var preload_size = opts.items.length * 0.1; // 10%
                     for (i = 0; i <= preload_size; i++) {
@@ -160,10 +159,30 @@
                     preload_image(0, true);
                 }
             };
+            autoplay = function() {
+                _i = 0;
+                interval_id = setInterval(function(){
+                    set_frame(_i);
+                    if (opts.autoplay_direction === ">") {
+                        _i = _i + 1;
+                    } else {
+                        _i = _i - 1;
+                    }
+                    if (_i > opts.items.length) {
+                        _i = 0;
+                    } else if (_i < 0) {
+                        _i = opts.items.length;
+                    }
+                }, opts.autoplay);
+            }
             // Init plugin
             init();
             // Preload first and last 10% of image stack;
             preload();
+            console.log(opts.autoplay !== false);
+            if (opts.autoplay !== false && opts.autoplay > 0) {
+                autoplay();
+            }
         }
     });
 }($));
